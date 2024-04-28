@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpRequest
 
 posts = [
     {
@@ -46,15 +45,22 @@ posts = [
 
 
 def index(request):
-    template_name = 'blog/index.html'
-    return render(request, template_name, )
+    template = 'blog/index.html'
+    context = {'posts': posts}
+    return render(request, template, context)
 
 
-def post_detail(request):
-    template_name = 'blog/detail.html'
-    return render(request, template_name, )
+def post_detail(request, id):
+    template = 'blog/detail.html'
+    post = [post for post in posts if post['id'] == id]
+    context = {'post': post[0]}
+    return render(request, template, context)
 
 
-def category_posts(request):
-    template_name = 'blog/category.html'
-    return render(request, template_name, )
+def category_posts(request, category_slug):
+    template = 'blog/category.html'
+    sorted_posts = [post for post in posts if post['category']
+                    == category_slug]
+    context = {'category': category_slug,
+               'posts': sorted_posts}
+    return render(request, template, context)
