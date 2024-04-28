@@ -24,6 +24,7 @@ def test_static_dir(settings_app_name, project_dirname):
     )
 
 
+
 def test_apps_registered(settings_app_name, project_dirname):
     register_apps_old_style = ['blog', 'pages']
     register_apps_new_style = [
