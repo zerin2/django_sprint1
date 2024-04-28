@@ -50,17 +50,16 @@ def index(request):
     return render(request, template, context)
 
 
-def post_detail(request, id):
+def post_detail(request, num_id):
     template = 'blog/detail.html'
-    post = [post for post in posts if post['id'] == id]
+    post = [post for post in posts if post['id'] == num_id]
     context = {'post': post[0]}
     return render(request, template, context)
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    sorted_posts = [post for post in posts if post['category']
-                    == category_slug]
+    sorted_posts = [post for post in posts if post['category'] == category_slug]
     context = {'category': category_slug,
                'posts': sorted_posts}
     return render(request, template, context)
