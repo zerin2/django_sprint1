@@ -43,6 +43,7 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
+POST = {post['id']: post for post in posts}
 
 
 def page_not_found(request):
@@ -54,11 +55,9 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    post_dict = {post['id']: post for post in posts}
-    post = post_dict.get(post_id)
-    if not post:
-        raise Http404()
-    return render(request, 'blog/detail.html', {'post': post})
+    if not POST.get(post_id):
+        raise Http404('Страница не найдена.')
+    return render(request, 'blog/detail.html', {'post': POST.get(post_id)})
 
 
 def category_posts(request, category_slug):
