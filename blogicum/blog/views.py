@@ -53,7 +53,11 @@ def index(request):
 def post_detail(request, post_id):
     if post_id not in POST_BY_ID:
         raise Http404('Страница не найдена.')
-    return render(request, 'blog/detail.html', {'post': POST_BY_ID.get(post_id)})
+    return render(
+        request,
+        'blog/detail.html',
+        {'post': POST_BY_ID.get(post_id)}
+    )
 
 
 def category_posts(request, category_slug):
