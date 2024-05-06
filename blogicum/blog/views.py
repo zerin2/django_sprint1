@@ -43,11 +43,7 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
-POST = {post['id']: post for post in posts}
-
-
-def page_not_found(request):
-    return HttpResponseNotFound('<h1>Страница не найдена<h1>')
+POST_BY_ID = {post['id']: post for post in posts}
 
 
 def index(request):
@@ -55,9 +51,9 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    if not POST.get(post_id):
+    if post_id not in POST_BY_ID:
         raise Http404('Страница не найдена.')
-    return render(request, 'blog/detail.html', {'post': POST.get(post_id)})
+    return render(request, 'blog/detail.html', {'post': POST_BY_ID.get(post_id)})
 
 
 def category_posts(request, category_slug):
